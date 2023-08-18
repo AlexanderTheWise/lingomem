@@ -1,5 +1,5 @@
-import "./assets/main.css";
 import "vuetify/styles";
+import "@/assets/main.css";
 
 import { createApp } from "vue";
 
