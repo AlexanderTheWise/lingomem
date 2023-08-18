@@ -116,7 +116,6 @@ const handleOnSubmit = handleSubmit(async (values) => {
 .outer-container {
   position: relative;
   max-width: fit-content;
-  margin: 50px;
 }
 
 .form-card {

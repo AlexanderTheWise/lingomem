@@ -1,7 +1,7 @@
 <template>
-  <SignUpView />
+  <SignIn />
 </template>
 
 <script setup lang="ts">
-import SignUpView from "@/views/SignUpView.vue";
+import SignIn from "./views/SignInView.vue";
 </script>
