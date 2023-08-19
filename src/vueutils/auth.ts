@@ -12,7 +12,5 @@ export async function signIn(credentials: UserCredentials) {
     ...credentials,
   });
 
-  console.log(await supabase.auth.getSession());
-
   return error?.message;
 }
