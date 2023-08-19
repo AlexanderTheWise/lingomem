@@ -16,11 +16,6 @@ const error = ref("");
 const handleSignUp = async (credentials: UserCredentials) => {
   const signUpError = await signUp(credentials);
 
-  if (signUpError) {
-    error.value = signUpError;
-    return;
-  }
-
-  error.value = "";
+  error.value = signUpError ?? "";
 };
 </script>
