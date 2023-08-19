@@ -74,6 +74,7 @@
       v-for="n in 5"
       :key="n"
       :style="{
+        zIndex: `${-n}`,
         transform: `rotate(${n * 2 + 'deg'}) translateX(${-n + 'px'})`,
       }"
     ></div>
@@ -118,7 +119,7 @@ const handleOnSubmit = handleSubmit(async (values) => {
   max-width: fit-content;
 }
 
-.form-card {
+.v-card.form-card {
   z-index: 1;
   background: white;
   transform: rotate(5deg);

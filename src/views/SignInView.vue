@@ -1,7 +1,12 @@
 <template>
   <CredentialsForm :submit-error="error" @submit="handleSignIn">
     <template #form-name>Sign in</template>
-    <template #form-link>Form link</template>
+    <template #form-link>
+      <div class="mt-2">
+        Don't have an account?
+        <RouterLink :to="{ name: 'SignUp' }">Sign up</RouterLink>
+      </div>
+    </template>
   </CredentialsForm>
 </template>
 

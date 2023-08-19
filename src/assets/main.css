@@ -3,3 +3,8 @@
 body {
   font-family: "Literata", serif;
 }
+
+a {
+  text-decoration: none;
+  font-style: italic;
+}
