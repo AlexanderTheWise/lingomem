@@ -1,5 +1,6 @@
 import "vuetify/styles";
 import "@/assets/main.css";
+import "@mdi/font/css/materialdesignicons.css";
 
 import { createApp } from "vue";
 import router from "@/router/index";
