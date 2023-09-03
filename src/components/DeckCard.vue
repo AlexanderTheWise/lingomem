@@ -1,5 +1,8 @@
 <template>
-  <v-card class="deck ma-0 pa-1 rounded-lg d-flex flex-column">
+  <v-card
+    class="deck ma-0 pa-1 rounded-lg d-flex flex-column"
+    :to="{ name: 'Deck', params: { deckId: deck.id } }"
+  >
     <v-btn
       class="deck-delete"
       icon="mdi-delete-outline"

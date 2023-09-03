@@ -3,9 +3,6 @@ import {
   createWebHashHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import AuthView from "@/views/AuthView.vue";
-import SignInView from "@/views/SignInView.vue";
-import SignUpView from "@/views/SignUpView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -14,10 +11,35 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/auth",
-    component: AuthView,
+    component: () => import("@/views/AuthView.vue"),
     children: [
-      { path: "signin", component: SignInView, name: "SignIn" },
-      { path: "signup", component: SignUpView, name: "SignUp" },
+      {
+        path: "signin",
+        component: () => import("@/views/SignInView.vue"),
+        name: "SignIn",
+      },
+      {
+        path: "signup",
+        component: import("@/views/SignUpView.vue"),
+        name: "SignUp",
+      },
+    ],
+  },
+  {
+    path: "/app",
+    component: () => import("@/views/AppLayout.vue"),
+    name: "App",
+    children: [
+      {
+        path: "dashboard",
+        component: () => import("@/views/DashboardView.vue"),
+        name: "Dashboard",
+      },
+      {
+        path: "deck/:deckId",
+        component: () => import("@/views/DeckView.vue"),
+        name: "Deck",
+      },
     ],
   },
 ];
