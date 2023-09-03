@@ -23,8 +23,8 @@ export interface Deck {
   flashcards: Flashcards;
 }
 
-export interface Flashcard extends SRItem {
-  id: string;
+export interface Flashcard {
+  id: number;
   question: string;
   answer: string;
   imageUrl: string;

@@ -13,13 +13,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import CredentialsForm from "../components/forms/CredentialsForm.vue";
-import { signUp } from "../vueutils/auth";
+import authUtils from "../vueutils/auth";
 import type { UserCredentials } from "@/types";
 
 const error = ref("");
 
 const handleSignUp = async (credentials: UserCredentials) => {
-  const signUpError = await signUp(credentials);
+  const signUpError = await authUtils.signUp(credentials);
 
   error.value = signUpError ?? "";
 };

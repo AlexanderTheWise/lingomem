@@ -14,12 +14,12 @@
 import { ref } from "vue";
 import type { UserCredentials } from "@/types";
 import CredentialsForm from "@/components/forms/CredentialsForm.vue";
-import { signIn } from "@/vueutils/auth";
+import authUtils from "@/vueutils/auth";
 
 const error = ref("");
 
 const handleSignIn = async (credentials: UserCredentials) => {
-  const signInError = await signIn(credentials);
+  const signInError = await authUtils.signIn(credentials);
 
   error.value = signInError ?? "";
 };

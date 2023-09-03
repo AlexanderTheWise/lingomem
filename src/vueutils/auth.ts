@@ -1,16 +1,22 @@
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 import type { UserCredentials } from "@/types";
 
-export async function signUp(credentials: UserCredentials) {
+async function signUp(credentials: UserCredentials) {
   const { error } = await supabase.auth.signUp({ ...credentials });
 
   return error?.message;
 }
 
-export async function signIn(credentials: UserCredentials) {
+async function signIn(credentials: UserCredentials) {
   const { error } = await supabase.auth.signInWithPassword({
     ...credentials,
   });
 
   return error?.message;
 }
+
+async function signOut() {
+  await supabase.auth.signOut();
+}
+
+export default { signIn, signUp, signOut };
