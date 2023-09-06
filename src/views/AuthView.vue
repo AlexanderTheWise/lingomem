@@ -1,12 +1,8 @@
 <template>
-  <FlexCenterContainer class="auth-container h-screen">
+  <div class="auth-container h-screen d-flex justify-center align-center">
     <RouterView />
-  </FlexCenterContainer>
+  </div>
 </template>
-
-<script setup lang="ts">
-import FlexCenterContainer from "../components/FlexCenterContainer.vue";
-</script>
 
 <styled scoped lang="css">
 .auth-container {
