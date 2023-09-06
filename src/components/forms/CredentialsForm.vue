@@ -14,55 +14,29 @@
         >
       </v-card-item>
 
-      <v-form v-model="meta.valid" @submit.prevent="handleOnSubmit">
-        <v-text-field
-          label="Email address"
-          variant="outlined"
-          density="compact"
-          type="email"
-          class="text-left mb-2"
-          :error="!!errors.email || !!submitError"
-          v-bind="email"
-        >
-          <template #details>
-            <div class="textfield-error w-100">
-              {{ errors.email }}
-            </div>
-          </template>
-        </v-text-field>
+      <FormValid @submit-form="$emit('submitCredentials', credentials)">
+        <template #fields>
+          <TextInput
+            label="Email adress"
+            type="email"
+            path="email"
+            :schema="string().email()"
+            @update-value="(email) => (credentials.email = email)"
+          />
 
-        <v-text-field
-          label="Password"
-          variant="outlined"
-          density="compact"
-          type="password"
-          class="text-left mb-2"
-          :error="!!errors.password || !!submitError"
-          v-bind="password"
-        >
-          <template #details>
-            <div class="textfield-error w-100">
-              {{ errors.password }}
-            </div>
-          </template>
-        </v-text-field>
+          <TextInput
+            label="Password"
+            type="password"
+            path="password"
+            :schema="string().min(8).max(24)"
+            @update-value="(password) => (credentials.password = password)"
+          />
 
-        <v-divider></v-divider>
+          <v-divider></v-divider>
 
-        <p class="submit-error mb-2">{{ submitError }}</p>
-
-        <v-btn
-          size="large"
-          block
-          rounded="xl"
-          variant="flat"
-          :loading="submitLoading"
-          :color="meta.valid ? 'teal-darken-4' : 'teal-lighten-4'"
-          @click="handleOnSubmit"
-        >
-          <slot name="form-name"></slot>
-        </v-btn>
-      </v-form>
+          <p class="submit-error mb-2">{{ submitError }}</p>
+        </template>
+      </FormValid>
 
       <v-divider> </v-divider>
 
@@ -82,35 +56,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useForm } from "vee-validate";
-import * as yup from "yup";
+import { reactive } from "vue";
+import { string } from "yup";
 import type { UserCredentials } from "@/types";
+import TextInput from "./TextInput.vue";
+import FormValid from "./FormValid.vue";
 
-const { defineInputBinds, handleSubmit, errors, meta } =
-  useForm<UserCredentials>({
-    validationSchema: yup.object({
-      email: yup.string().email().required(),
-      password: yup
-        .string()
-        .min(8, "Must be at least 8 characters")
-        .max(24, "Must be at most 24 characters")
-        .required(),
-    }),
-  });
-
-const submitLoading = ref(false);
-const email = defineInputBinds("email", { validateOnInput: true });
-const password = defineInputBinds("password", { validateOnInput: true });
+const credentials = reactive<UserCredentials>({
+  email: "",
+  password: "",
+});
 
 const emit = defineEmits<{
-  (event: "submit", credentials: UserCredentials): Promise<void>;
+  (event: "submitCredentials", credentials: UserCredentials): Promise<void>;
 }>();
-defineProps<{ submitError: string }>();
 
-const handleOnSubmit = handleSubmit(async (values) => {
-  await emit("submit", values);
-});
+defineProps<{ submitError: string }>();
 </script>
 
 <styled scoped lang="scss">
@@ -123,15 +84,6 @@ const handleOnSubmit = handleSubmit(async (values) => {
   z-index: 1;
   background: white;
   transform: rotate(5deg);
-}
-
-.textfield-error {
-  color: #b00020;
-  white-space: nowrap;
-
-  &::first-letter {
-    text-transform: capitalize;
-  }
 }
 
 .submit-error {
