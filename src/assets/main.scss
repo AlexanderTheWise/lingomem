@@ -8,3 +8,13 @@ a {
   text-decoration: none;
   font-style: italic;
 }
+
+.textfield-error {
+  color: #b00020;
+  white-space: nowrap;
+  width: 100%;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}

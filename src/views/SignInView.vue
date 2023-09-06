@@ -1,5 +1,5 @@
 <template>
-  <CredentialsForm :submit-error="error" @submit="handleSignIn">
+  <CredentialsForm :submit-error="error" @submit-credentials="handleSignIn">
     <template #form-name>Sign in</template>
     <template #form-link>
       <div class="mt-2">
@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { provide, ref } from "vue";
 import type { UserCredentials } from "@/types";
 import CredentialsForm from "@/components/forms/CredentialsForm.vue";
 import authUtils from "@/vueutils/auth";
@@ -23,4 +23,6 @@ const handleSignIn = async (credentials: UserCredentials) => {
 
   error.value = signInError ?? "";
 };
+
+provide("submitName", "Sign in");
 </script>
