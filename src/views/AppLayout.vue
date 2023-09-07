@@ -10,11 +10,20 @@
             class="px-2"
           >
           </v-list-item>
+
           <v-list-item
             title="Flashcards"
             prepend-icon="mdi-cards"
             class="px-2"
           ></v-list-item>
+
+          <v-list-item
+            title="Add deck"
+            prepend-icon="mdi-plus"
+            class="px-2"
+            :to="{ name: 'AddDeck' }"
+          >
+          </v-list-item>
         </v-list>
 
         <v-list>
@@ -27,7 +36,7 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-main class="d-flex align-center">
+      <v-main class="d-flex justify-center align-center">
         <RouterView />
       </v-main>
     </v-layout>
@@ -37,9 +46,6 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import authUtils from "@/vueutils/auth";
-import { useRoute } from "vue-router";
-
-const routeName = useRoute().name;
 </script>
 
 <styled scoped lang="css">

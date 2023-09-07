@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['flip-card', isFlipped ? 'flip-card-flipped' : '']"
+    :class="['flip-card move-up', isFlipped ? 'flip-card-flipped' : '']"
     @click="flip"
   >
     <div class="flip-card-inner w-100 h-100">

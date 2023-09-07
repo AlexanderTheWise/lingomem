@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="deck ma-0 pa-1 rounded-lg d-flex flex-column"
+    class="deck move-up ma-0 pa-1 rounded-lg d-flex flex-column"
     :to="{ name: 'Deck', params: { deckId: deck.id } }"
   >
     <v-btn
@@ -8,7 +8,7 @@
       icon="mdi-delete-outline"
       variant="tonal"
       color="red-darken-4"
-      @click="deleteDeck(deck.id)"
+      @click.prevent="deleteDeck(deck.id)"
     >
     </v-btn>
 
@@ -48,10 +48,6 @@ const deleteDeck = inject<(deckId: number) => Promise<void>>("deleteDeck")!;
 .deck {
   position: relative;
   transition: transform 0.1s ease;
-
-  &:hover {
-    transform: translateY(-1.5%);
-  }
 
   &-content {
     border-top: 1px solid;

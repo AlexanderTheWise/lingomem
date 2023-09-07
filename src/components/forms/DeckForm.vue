@@ -6,7 +6,7 @@
 
     <v-divider class="my-2"></v-divider>
 
-    <FormValid>
+    <FormValid @submit-form="$emit('submitDeckData', deckData)">
       <template #fields>
         <TextInput
           label="Name"
@@ -47,4 +47,6 @@ const deckData = reactive<Omit<DeckData, "file"> & { file: File | null }>({
   description: "",
   file: null,
 });
+
+defineEmits<{ (event: "submitDeckData", deckData: DeckData): Promise<void> }>();
 </script>

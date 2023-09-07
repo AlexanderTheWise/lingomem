@@ -36,9 +36,19 @@ const routes: RouteRecordRaw[] = [
         name: "Dashboard",
       },
       {
-        path: "deck/:deckId",
-        component: () => import("@/views/DeckView.vue"),
-        name: "Deck",
+        path: "deck",
+        children: [
+          {
+            path: ":deckId",
+            component: () => import("@/views/DeckView.vue"),
+            name: "Deck",
+          },
+          {
+            path: "add",
+            component: () => import("@/views/AddDeckView.vue"),
+            name: "AddDeck",
+          },
+        ],
       },
     ],
   },

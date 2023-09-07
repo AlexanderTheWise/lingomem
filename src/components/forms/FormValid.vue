@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="formValid" @submit.prevent="emit('submitForm')">
+  <v-form v-model="formValid" @submit.prevent="$emit('submitForm')">
     <slot name="fields"></slot>
 
     <SubmitButton :disabled="!formValid"> </SubmitButton>
@@ -12,5 +12,5 @@ import SubmitButton from "../SubmitButton.vue";
 
 const formValid = ref(false);
 
-const emit = defineEmits<{ (event: "submitForm"): void }>();
+defineEmits<{ (event: "submitForm"): void }>();
 </script>

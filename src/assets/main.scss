@@ -18,3 +18,11 @@ a {
     text-transform: capitalize;
   }
 }
+
+.move-up {
+  transition: transform 0.38s;
+
+  &:hover {
+    transform: translateY(-1.5%);
+  }
+}
