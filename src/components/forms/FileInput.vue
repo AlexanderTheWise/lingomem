@@ -8,7 +8,7 @@
     :rules="rules"
     @update:model-value="
       (files) => {
-        emit('updateFile', files[0]);
+        $emit('updateFile', files[0]);
       }
     "
   >
@@ -22,6 +22,6 @@ const rules: ((value: File[]) => boolean | string)[] = [
   (value) => value[0].size < 3000000 || "Should be less than 3MB",
 ];
 
-const emit = defineEmits<{ (event: "updateFile", file: File): void }>();
+defineEmits<{ (event: "updateFile", file: File): void }>();
 defineProps<{ label: string }>();
 </script>

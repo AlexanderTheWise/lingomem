@@ -67,7 +67,7 @@ const credentials = reactive<UserCredentials>({
   password: "",
 });
 
-const emit = defineEmits<{
+defineEmits<{
   (event: "submitCredentials", credentials: UserCredentials): Promise<void>;
 }>();
 

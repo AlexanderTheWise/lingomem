@@ -1,4 +1,5 @@
 import supabase from "@/lib/supabase";
+import type { DeckData } from "@/types";
 
 async function getDecks(page: number) {
   const rangeTo = page * 3;
@@ -26,4 +27,14 @@ async function deleteDeck(id: number) {
   await supabase.from("decks").delete().eq("id", id);
 }
 
-export default { getDecks, deleteDeck, getTotalDecksPages };
+async function addDeck({ file, ...rest }: DeckData) {
+  const { data } = await supabase.storage.from("decks").upload(file.name, file);
+
+  const {
+    data: { publicUrl: imageUrl },
+  } = await supabase.storage.from("decks").getPublicUrl(data!.path);
+
+  await supabase.from("decks").insert({ ...rest, imageUrl });
+}
+
+export default { getDecks, deleteDeck, getTotalDecksPages, addDeck };
