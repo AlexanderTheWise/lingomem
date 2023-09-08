@@ -22,5 +22,9 @@ defineEmits<{ (event: "updateValue", value: string): void }>();
 
 const props = defineProps<TextInputProps>();
 
-const { value, errors } = useField<string>(props.path, props.schema.required());
+const { value, errors } = useField<string>(
+  props.path,
+  props.schema.required(),
+  { initialValue: props.predefinedValue },
+);
 </script>

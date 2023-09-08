@@ -44,6 +44,11 @@ const routes: RouteRecordRaw[] = [
             name: "Deck",
           },
           {
+            path: "modify/:deckId",
+            component: () => import("@/views/ModifyDeckView.vue"),
+            name: "ModifyDeck",
+          },
+          {
             path: "add",
             component: () => import("@/views/AddDeckView.vue"),
             name: "AddDeck",

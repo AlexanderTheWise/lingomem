@@ -29,6 +29,8 @@ export interface Deck extends Omit<DeckData, "file"> {
   flashcards: Flashcards;
 }
 
+export type DeckToModify = Omit<Deck, "flashcards" | "user_id">;
+
 export interface Flashcard {
   id: number;
   question: string;
@@ -46,6 +48,7 @@ export interface TextAreaProps {
   icon?: string;
   path: string;
   schema: AnySchema;
+  predefinedValue?: string;
 }
 
 export interface TextInputProps extends TextAreaProps {

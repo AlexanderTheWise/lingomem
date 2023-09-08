@@ -24,5 +24,7 @@ import { useField } from "vee-validate";
 defineEmits<{ (event: "updateValue", value: string): void }>();
 const props = defineProps<TextAreaProps>();
 
-const { value, errors } = useField<string>(props.path, props.schema);
+const { value, errors } = useField<string>(props.path, props.schema, {
+  initialValue: props.predefinedValue,
+});
 </script>

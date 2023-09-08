@@ -6,13 +6,14 @@
 
     <v-divider class="my-2"></v-divider>
 
-    <FormValid @submit-form="$emit('submitDeckData', deckData)">
+    <FormValid @submit-form="handleSubmitDeckForm">
       <template #fields>
         <TextInput
           label="Name"
           icon="mdi-format-text"
           path="name"
           :schema="string().min(4).max(20)"
+          :predefined-value="deck?.name"
           @update-value="(name) => (deckData.name = name)"
         />
 
@@ -21,6 +22,7 @@
           icon="mdi-text-long"
           path="description"
           :schema="string().max(24)"
+          :predefined-value="deck?.description"
           @update-value="(description) => (deckData.description = description)"
         />
 
@@ -34,13 +36,16 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { string } from "yup";
 import FileInput from "./FileInput.vue";
 import TextInput from "./TextInput.vue";
 import TextArea from "./TextArea.vue";
 import FormValid from "./FormValid.vue";
-import { type DeckData } from "@/types";
+import { type DeckData, type DeckToModify } from "@/types";
+
+const router = useRouter();
 
 const deckData = reactive<Omit<DeckData, "file"> & { file: File | null }>({
   name: "",
@@ -48,5 +53,13 @@ const deckData = reactive<Omit<DeckData, "file"> & { file: File | null }>({
   file: null,
 });
 
-defineEmits<{ (event: "submitDeckData", deckData: DeckData): Promise<void> }>();
+const emit = defineEmits<{
+  (event: "submitDeckData", deckData: DeckData): Promise<void>;
+}>();
+defineProps<{ deck?: DeckToModify }>();
+
+async function handleSubmitDeckForm() {
+  await emit("submitDeckData", deckData as DeckData);
+  await router.push({ name: "Dashboard" });
+}
 </script>
