@@ -37,7 +37,11 @@
       </v-navigation-drawer>
 
       <v-main class="d-flex justify-center align-center">
-        <RouterView />
+        <RouterView v-slot="{ Component }">
+          <Suspense>
+            <component :is="Component"></component>
+          </Suspense>
+        </RouterView>
       </v-main>
     </v-layout>
   </v-app>

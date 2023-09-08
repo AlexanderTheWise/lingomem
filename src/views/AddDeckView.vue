@@ -11,7 +11,7 @@ import type { DeckData } from "@/types";
 import { provide } from "vue";
 
 const handleAddDeck = async (deckData: DeckData) => {
-  deckUtils.addDeck(deckData);
+  await deckUtils.addDeck(deckData);
 };
 
 provide("submitName", "Create new deck");

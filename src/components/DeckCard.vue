@@ -1,8 +1,16 @@
 <template>
-  <v-card
-    class="deck move-up ma-0 pa-1 rounded-lg d-flex flex-column"
-    :to="{ name: 'Deck', params: { deckId: deck.id } }"
-  >
+  <v-card class="deck move-up ma-0 pa-1 rounded-lg d-flex flex-column">
+    <v-btn
+      class="deck-modify"
+      icon="mdi-text-box-edit-outline"
+      variant="tonal"
+      color="blue-darken-3"
+      :to="{
+        name: 'ModifyDeck',
+        params: { deckId: deck.id },
+      }"
+    ></v-btn>
+
     <v-btn
       class="deck-delete"
       icon="mdi-delete-outline"
@@ -19,6 +27,7 @@
         height="150"
         cover
         :src="deck.imageUrl"
+        :srcset="deck.imageUrl"
         class="rounded-circle"
       ></v-img>
     </div>
@@ -57,6 +66,11 @@ const deleteDeck = inject<(deckId: number) => Promise<void>>("deleteDeck")!;
   .deck-delete {
     position: absolute;
     right: 1.5%;
+  }
+
+  .deck-modify {
+    position: absolute;
+    left: 1.5%;
   }
 }
 </styled>
