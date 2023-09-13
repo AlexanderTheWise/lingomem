@@ -37,10 +37,12 @@ async function deleteDeck(id: number) {
   await supabase.from("decks").delete().eq("id", id);
 }
 
+const deleteSpaces = (text: string) => text.replace(" ", "");
+
 export async function uploadImage(bucket_id: string, file: File) {
   const { data } = await supabase.storage
     .from(bucket_id)
-    .upload(file.name, file);
+    .upload(deleteSpaces(file.name), file);
 
   const {
     data: { publicUrl: imageUrl },
@@ -51,11 +53,13 @@ export async function uploadImage(bucket_id: string, file: File) {
 
 export async function modifyImage(bucket_id: string, path: string, file: File) {
   await supabase.storage.from(bucket_id).update(path, file);
-  await supabase.storage.from(bucket_id).move(path, file.name);
+  await supabase.storage.from(bucket_id).move(path, deleteSpaces(file.name));
 
   const {
     data: { publicUrl: imageUrl },
-  } = await supabase.storage.from(bucket_id).getPublicUrl(file.name);
+  } = await supabase.storage
+    .from(bucket_id)
+    .getPublicUrl(deleteSpaces(file.name));
 
   return imageUrl;
 }
@@ -63,7 +67,13 @@ export async function modifyImage(bucket_id: string, path: string, file: File) {
 async function addDeck({ file, ...rest }: DeckData) {
   const imageUrl = await uploadImage("decks", file);
 
-  await supabase.from("decks").insert({ ...rest, imageUrl });
+  const { data } = await supabase
+    .from("decks")
+    .insert({ ...rest, imageUrl })
+    .select("id")
+    .single<{ id: number }>();
+
+  return data!.id;
 }
 
 async function modifyDeck({
