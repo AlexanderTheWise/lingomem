@@ -1,5 +1,5 @@
 <template>
-  <v-card class="deck-form-card pa-2" width="300">
+  <FormCard>
     <v-card-title class="text-center">
       <slot name="form-title"></slot>
     </v-card-title>
@@ -10,7 +10,6 @@
       <template #fields>
         <TextInput
           label="Name"
-          icon="mdi-format-text"
           path="name"
           :schema="string().min(4).max(20)"
           :predefined-value="deck?.name"
@@ -32,21 +31,20 @@
         />
       </template>
     </FormValid>
-  </v-card>
+  </FormCard>
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { reactive, ref } from "vue";
 import { string } from "yup";
 import FileInput from "./FileInput.vue";
 import TextInput from "./TextInput.vue";
 import TextArea from "./TextArea.vue";
 import FormValid from "./FormValid.vue";
+import FormCard from "./FormCard.vue";
 import { type DeckData, type DeckToModify } from "@/types";
 
-const router = useRouter();
-
+const loading = ref(false);
 const deckData = reactive<Omit<DeckData, "file"> & { file: File | null }>({
   name: "",
   description: "",
@@ -59,7 +57,10 @@ const emit = defineEmits<{
 defineProps<{ deck?: DeckToModify }>();
 
 async function handleSubmitDeckForm() {
+  loading.value = true;
+
   await emit("submitDeckData", deckData as DeckData);
-  await router.push({ name: "Dashboard" });
+
+  loading.value = false;
 }
 </script>

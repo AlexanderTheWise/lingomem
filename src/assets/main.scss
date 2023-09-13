@@ -26,3 +26,13 @@ a {
     transform: translateY(-1.5%);
   }
 }
+
+.v-btn.card-modify {
+  position: absolute;
+  left: 1.5%;
+}
+
+.v-btn.card-delete {
+  position: absolute;
+  right: 1.5%;
+}
