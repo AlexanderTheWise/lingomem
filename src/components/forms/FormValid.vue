@@ -12,5 +12,5 @@ import SubmitButton from "../SubmitButton.vue";
 
 const formValid = ref(false);
 
-defineEmits<{ (event: "submitForm"): void }>();
+defineEmits<{ (event: "submitForm"): Promise<void> }>();
 </script>
