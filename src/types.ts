@@ -31,11 +31,17 @@ export interface Deck extends Omit<DeckData, "file"> {
 
 export type DeckToModify = Omit<Deck, "flashcards" | "user_id">;
 
-export interface Flashcard {
-  id: number;
+export interface FlashcardData {
   question: string;
   answer: string;
+  file: File;
+}
+
+export interface Flashcard extends Omit<FlashcardData, "file"> {
+  id: number;
+  deck_id: number;
   imageUrl: string;
+  user_id: string;
 }
 
 export type Flashcards = Flashcard[];
