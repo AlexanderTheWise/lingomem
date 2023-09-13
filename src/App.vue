@@ -9,14 +9,10 @@ import { RouterView, useRouter } from "vue-router";
 
 const router = useRouter();
 
-watchEffect(() => {
-  supabase.auth.onAuthStateChange((event) => {
-    if (event === "SIGNED_IN") {
-      router.push({ name: "Dashboard" });
-    }
-
+watchEffect(async () => {
+  supabase.auth.onAuthStateChange(async (event) => {
     if (event === "SIGNED_OUT") {
-      router.push({ name: "SignIn" });
+      await router.push({ name: "SignIn" });
     }
   });
 });
