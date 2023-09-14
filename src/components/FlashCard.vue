@@ -1,19 +1,11 @@
 <template>
   <FlipCard>
     <template #front>
-      <CardSide
-        :flashcard-id="flashcard.id"
-        :image-url="flashcard.imageUrl"
-        :side-content="flashcard.question"
-      />
+      <CardSide :flashcard="flashcard" :side-content="flashcard.question" />
     </template>
 
     <template #back>
-      <CardSide
-        :flashcard-id="flashcard.id"
-        :image-url="flashcard.imageUrl"
-        :side-content="flashcard.answer"
-      />
+      <CardSide :flashcard="flashcard" :side-content="flashcard.answer" />
     </template>
   </FlipCard>
 </template>

@@ -5,18 +5,31 @@
     height="300"
   >
     <v-btn
+      class="card-modify"
+      icon="mdi-text-box-edit-outline"
+      variant="tonal"
+      color="blue-darken-3"
+      :to="{
+        name: 'ModifyFlashcard',
+        params: { flashcardId: flashcard.id, deckId: flashcard.deck_id },
+      }"
+    ></v-btn>
+
+    <v-btn
       class="card-delete"
       icon="mdi-delete-outline"
       variant="tonal"
       color="red-darken-4"
-      @click.stop="deleteFlashcard(flashcardId)"
+      @click.stop="
+        deleteFlashcard(flashcard.id, flashcard.imageUrl.split('/').at(-1)!)
+      "
     >
     </v-btn>
 
     <v-img
       class="rounded-circle"
       cover
-      :src="imageUrl"
+      :src="flashcard.imageUrl"
       :alt="sideContent"
       width="150"
       max-height="150"
@@ -27,25 +40,22 @@
 </template>
 
 <script setup lang="ts">
+import type { Flashcard } from "@/types";
 import { inject } from "vue";
 
 defineProps<{
-  imageUrl: string;
+  flashcard: Flashcard;
   sideContent: string;
-  flashcardId: number;
 }>();
 
 const deleteFlashcard =
-  inject<(flashcardId: number) => Promise<void>>("deleteFlashcard")!;
+  inject<(flashcardId: number, path: string) => Promise<void>>(
+    "deleteFlashcard",
+  )!;
 </script>
 
 <styled scoped lang="scss">
 .card {
   position: relative;
-
-  &-delete {
-    position: absolute;
-    right: 2%;
-  }
 }
 </styled>
