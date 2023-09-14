@@ -36,24 +36,29 @@ const routes: RouteRecordRaw[] = [
         name: "Dashboard",
       },
       {
-        path: "deck",
-        children: [
-          {
-            path: ":deckId",
-            component: () => import("@/views/DeckView.vue"),
-            name: "Deck",
-          },
-          {
-            path: "modify/:deckId",
-            component: () => import("@/views/ModifyDeckView.vue"),
-            name: "ModifyDeck",
-          },
-          {
-            path: "add",
-            component: () => import("@/views/AddDeckView.vue"),
-            name: "AddDeck",
-          },
-        ],
+        path: "deck/:deckId",
+        component: () => import("@/views/DeckView.vue"),
+        name: "Deck",
+      },
+      {
+        path: "deck/:deckId/modify",
+        component: () => import("@/views/ModifyDeckView.vue"),
+        name: "ModifyDeck",
+      },
+      {
+        path: "deck/add",
+        component: () => import("@/views/AddDeckView.vue"),
+        name: "AddDeck",
+      },
+      {
+        path: ":deckId/flashcard/add",
+        component: () => import("@/views/AddFlashcardView.vue"),
+        name: "AddFlashcard",
+      },
+      {
+        path: ":deckId/:flashcardId/modify",
+        component: () => import("@/views/ModifyFlashcard.vue"),
+        name: "ModifyFlashcard",
       },
     ],
   },
