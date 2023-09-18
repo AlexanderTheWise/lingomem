@@ -1,8 +1,11 @@
+import supabase from "@/lib/supabase";
 import {
   createRouter,
   createWebHashHistory,
   type RouteRecordRaw,
 } from "vue-router";
+
+const getUser = async () => (await supabase.auth.getUser()).data.user;
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,6 +15,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/auth",
     component: () => import("@/views/AuthView.vue"),
+    name: "Auth",
+    meta: {
+      requiresAuth: false,
+    },
+    beforeEnter: async (_, from) => {
+      if (from.meta.requiresAuth && (await getUser())) return false;
+    },
     children: [
       {
         path: "signin",
@@ -29,6 +39,12 @@ const routes: RouteRecordRaw[] = [
     path: "/app",
     component: () => import("@/views/AppLayout.vue"),
     name: "App",
+    meta: {
+      requiresAuth: true,
+    },
+    beforeEnter: async (_, from) => {
+      if (!from.meta.requiresAuth && !(await getUser())) return false;
+    },
     children: [
       {
         path: "dashboard",
