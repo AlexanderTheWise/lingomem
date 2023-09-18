@@ -20,7 +20,7 @@
           label="Description"
           icon="mdi-text-long"
           path="description"
-          :schema="string().max(24)"
+          :schema="string().max(70)"
           :predefined-value="deck?.description"
           @update-value="(description) => (deckData.description = description)"
         />
