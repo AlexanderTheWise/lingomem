@@ -32,7 +32,7 @@
             title="Logout"
             prepend-icon="mdi-logout"
             class="bg-teal-darken-1 rounded-lg px-2"
-            @click.stop="authUtils.signOut()"
+            @click.stop="signOut"
           ></v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -49,8 +49,16 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+import { RouterView, useRouter } from "vue-router";
 import authUtils from "@/vueutils/auth";
+
+const router = useRouter();
+
+const signOut = async () => {
+  await authUtils.signOut();
+
+  router.push({ name: "SignIn" });
+};
 </script>
 
 <styled scoped lang="css">
