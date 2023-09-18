@@ -23,6 +23,7 @@
       @click.stop="
         deleteFlashcard(flashcard.id, flashcard.imageUrl.split('/').at(-1)!)
       "
+      v-if="routeName !== 'Study'"
     >
     </v-btn>
 
@@ -40,8 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Flashcard } from "@/types";
 import { inject } from "vue";
+import { useRoute } from "vue-router";
+import type { Flashcard } from "@/types";
+
+const routeName = useRoute().name;
 
 defineProps<{
   flashcard: Flashcard;
