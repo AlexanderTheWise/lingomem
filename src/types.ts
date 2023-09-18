@@ -11,8 +11,10 @@ export interface SRItem {
   interval: number;
 }
 
+export type Score = 1 | 2 | 3 | 4 | 5;
+
 export interface Evalutation {
-  score: 1 | 2 | 3 | 4 | 5;
+  score: Score;
   lateness: number;
 }
 
@@ -42,8 +44,11 @@ export interface Flashcard extends Omit<FlashcardData, "file"> {
   deck_id: number;
   imageUrl: string;
   user_id: string;
+  schedule_time: string;
 }
 
+export type StudyCardStructure = Flashcard & SRItem;
+export type StudyCards = StudyCardStructure[];
 export type Flashcards = Flashcard[];
 export type Decks = Deck[];
 export type DeckCard = Omit<Deck, "user_id" | "flashcards">;
@@ -59,4 +64,10 @@ export interface TextAreaProps {
 
 export interface TextInputProps extends TextAreaProps {
   type?: string;
+}
+
+export enum StudyPhase {
+  Start,
+  Studying,
+  Finished,
 }

@@ -1,5 +1,9 @@
 <template>
   <PaginateWraper>
+    <v-btn :to="{ name: 'AddFlashcard', params: { deckId } }"
+      >Add a new flashcard</v-btn
+    >
+
     <template v-if="flashcards.length">
       <CardSlide :flashcards="flashcards" />
 
@@ -8,12 +12,6 @@
         :page="page"
         :total-pages="totalPages"
       />
-    </template>
-
-    <template v-else>
-      <v-btn :to="{ name: 'AddFlashcard', params: { deckId } }"
-        >Add a new flashcard</v-btn
-      >
     </template>
   </PaginateWraper>
 </template>

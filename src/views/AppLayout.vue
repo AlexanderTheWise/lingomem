@@ -15,6 +15,7 @@
             title="Flashcards"
             prepend-icon="mdi-cards"
             class="px-2"
+            :to="{ name: 'Study' }"
           ></v-list-item>
 
           <v-list-item
