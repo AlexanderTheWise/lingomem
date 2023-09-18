@@ -1,11 +1,11 @@
 import supabase from "@/lib/supabase";
 import { getTotalPages, modifyImage, uploadImage } from "./decks";
-import type { Flashcard, FlashcardData } from "@/types";
+import type { Flashcard, FlashcardData, StudyCards } from "@/types";
 
 async function getFlashcard(flashcardId: number): Promise<Flashcard> {
   const { data } = await supabase
     .from("flashcards")
-    .select("id, question, answer, imageUrl, user_id, deck_id")
+    .select("*")
     .eq("id", flashcardId)
     .single();
 
@@ -22,6 +22,19 @@ async function getFlashcards(deckId: number, page: number) {
     .range(rangeTo - 3, rangeTo);
 
   return data;
+}
+
+async function getFlashcardsToReview() {
+  const now = new Date().toISOString();
+
+  const { data } = await supabase
+    .from("flashcards")
+    .select("*")
+    .lte("schedule_time", now)
+    .order("schedule_time", { ascending: true })
+    .returns<StudyCards>();
+
+  return data!;
 }
 
 async function addFlashcard({
@@ -57,6 +70,7 @@ async function getTotalFlashcardsPages() {
 }
 
 export default {
+  getFlashcardsToReview,
   getTotalFlashcardsPages,
   getFlashcards,
   deleteFlashcard,

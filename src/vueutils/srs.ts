@@ -101,5 +101,5 @@ export function srsFunc(previous: SRItem, evaluation: Evalutation) {
     }
   }
 
-  return { numberOfReviews: reviews, efactor, interval };
+  return { reviews, efactor, interval };
 }

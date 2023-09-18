@@ -1,11 +1,15 @@
 <template>
   <PaginateWraper>
-    <DeckSlide :decks="decks!" />
-    <PaginationComp
-      @update-page="setPage"
-      :page="page"
-      :total-pages="totalPages"
-    />
+    <v-btn :to="{ name: 'AddDeck' }">Add a new deck</v-btn>
+
+    <template v-if="decks.length">
+      <DeckSlide :decks="decks!" />
+      <PaginationComp
+        @update-page="setPage"
+        :page="page"
+        :total-pages="totalPages"
+      />
+    </template>
   </PaginateWraper>
 </template>
 
